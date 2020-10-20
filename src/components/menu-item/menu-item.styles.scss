@@ -5,11 +5,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
+  border: 1px solid rgb(223, 191, 191);
   margin: 0 7.5px 15px;
   overflow: hidden;
-  background-position: center;
-  background-size: cover;
 
   &:hover {
     cursor: pointer;
