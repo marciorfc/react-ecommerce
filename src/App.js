@@ -7,7 +7,6 @@ import ShopPage from './pages/shop/shop.component.jsx';
 import Header from './components/header/header.component.jsx';
 import SignInAndSignUpPage from './pages/sign-in-sign-up/sign-in-sign-up.component.jsx';
 import { auth } from './firebase/firebase.utils';
-import { cleanup } from '@testing-library/react';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -15,7 +14,7 @@ function App() {
   useEffect(() => {
     // eslint-disable-next-line no-const-assign
     const unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      setCurrentUser({ currenUser: user });
+      setCurrentUser(user);
       console.log(user);
     });
     return function unsubscribe() {
@@ -26,7 +25,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header currentUser={currentUser} />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" component={ShopPage} />
