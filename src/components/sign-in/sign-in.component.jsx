@@ -4,6 +4,8 @@ import './sign-in.styles.scss';
 import FormInput from '../form-input/form-input.component.jsx';
 import CustomButton from '../custom-button/custom-button.component.jsx';
 
+import { signInWithGoogle } from '../../firebase/firebase.utils';
+
 const initalState = {
   email: '',
   password: '',
@@ -48,6 +50,7 @@ const SignIn = () => {
           required
         />
         <CustomButton type="submit">Sign in</CustomButton>
+        <CustomButton onClick={signInWithGoogle}>Sign with Google</CustomButton>
       </form>
     </>
   );

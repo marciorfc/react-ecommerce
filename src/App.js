@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 
@@ -6,8 +6,24 @@ import HomePage from './pages/homepage/homepage.component.jsx';
 import ShopPage from './pages/shop/shop.component.jsx';
 import Header from './components/header/header.component.jsx';
 import SignInAndSignUpPage from './pages/sign-in-sign-up/sign-in-sign-up.component.jsx';
+import { auth } from './firebase/firebase.utils';
+import { cleanup } from '@testing-library/react';
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-const-assign
+    const unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
+      setCurrentUser({ currenUser: user });
+      console.log(user);
+    });
+    return function unsubscribe() {
+      console.log('cleaning up');
+      unsubscribeFromAuth();
+    };
+  }, []);
+
   return (
     <div className="App">
       <Header />
