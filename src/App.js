@@ -6,7 +6,7 @@ import HomePage from './pages/homepage/homepage.component.jsx';
 import ShopPage from './pages/shop/shop.component.jsx';
 import Header from './components/header/header.component.jsx';
 import SignInAndSignUpPage from './pages/sign-in-sign-up/sign-in-sign-up.component.jsx';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -14,7 +14,8 @@ function App() {
   useEffect(() => {
     // eslint-disable-next-line no-const-assign
     const unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
+      //setCurrentUser(user);
+      createUserProfileDocument(user);
       console.log(user);
     });
     return function unsubscribe() {
