@@ -21,7 +21,6 @@ function App() {
             id: snapShot.id,
             ...snapShot.data(),
           });
-          console.log('currentUser', currentUser);
         });
       } else {
         setCurrentUser(userAuth);
@@ -34,6 +33,8 @@ function App() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => console.log('currentUser', currentUser), [currentUser]);
 
   return (
     <div className="App">
