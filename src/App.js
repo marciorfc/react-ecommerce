@@ -12,16 +12,26 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    // eslint-disable-next-line no-const-assign
-    const unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      //setCurrentUser(user);
-      createUserProfileDocument(user);
-      console.log(user);
+    let unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        //
+        userRef.onSnapshot((snapShot) => {
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data(),
+          });
+        });
+      } else {
+        setCurrentUser(userAuth);
+      }
     });
-    return function unsubscribe() {
+    //unssubscribe function
+    return () => {
       console.log('cleaning up');
       unsubscribeFromAuth();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
