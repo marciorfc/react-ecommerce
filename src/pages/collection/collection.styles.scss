@@ -1,0 +1,9 @@
+.collection-items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .collection-item {
+    margin: 10px;
+  }
+}
