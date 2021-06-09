@@ -17,19 +17,21 @@ const ShopPage = ({ match, updateShopRedux }) => {
 
   const [ loading, setLoading ] = useState(true);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    const collectionRef = firestore.collection('collections');
- 
-    const unsubscribeFromSnapshot = collectionRef.onSnapshot(async snapshot => {
-      const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-      updateShopRedux(collectionsMap);
-      setLoading(false);
-      
-    });
-    //unsubscribe function
-    return () => {
-      unsubscribeFromSnapshot();
-    };
+    async function fetchData() {
+      const collectionRef = firestore.collection('collections');
+      try {
+        const snapshot = await collectionRef.get();
+        const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+        updateShopRedux(collectionsMap);
+        setLoading(false);
+      } catch(error) {
+        console.log(error);
+      }  
+    }
+    console.log('fetch collections');
+    fetchData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
