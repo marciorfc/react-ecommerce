@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 
 import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
 import CollectionPageContainer from '../collection/collection.container';
-import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
+import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 
 
-const ShopPage = ({ match, fetchCollectionsStartAsync }) => {
+const ShopPage = ({ match, fetchCollectionsStart }) => {
   console.log(match);
 
   useEffect(() => {
     console.log('fetch collections');
-    fetchCollectionsStartAsync();
+    fetchCollectionsStart();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -26,7 +26,7 @@ const ShopPage = ({ match, fetchCollectionsStartAsync }) => {
 )};
 
 const mapDispatchToProps = dispatch => ({
-  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync())
+  fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
 })
 
 
