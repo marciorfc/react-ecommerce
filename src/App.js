@@ -18,30 +18,30 @@ import { selectCollectionsForPreview } from './redux/shop/shop.selector';
 function App({ currentUser, setCurrentUser, collectionsArray }) {
   //const [currentUser, setCurrentUser] = useState(null);
 
-  useEffect(() => {
-    let unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-        //
-        userRef.onSnapshot((snapShot) => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      } else {
-        setCurrentUser(userAuth);
-      }
-      //addCollectionsAndDocuments('collections', collectionsArray.map(({title, items }) => ({ title, items})));
-      //getCollectionsAndDocuments('collections');
-    });
-    //unssubscribe function
-    return () => {
-      console.log('cleaning up');
-      unsubscribeFromAuth();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   let unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+  //     if (userAuth) {
+  //       const userRef = await createUserProfileDocument(userAuth);
+  //       //
+  //       userRef.onSnapshot((snapShot) => {
+  //         setCurrentUser({
+  //           id: snapShot.id,
+  //           ...snapShot.data(),
+  //         });
+  //       });
+  //     } else {
+  //       setCurrentUser(userAuth);
+  //     }
+  //     //addCollectionsAndDocuments('collections', collectionsArray.map(({title, items }) => ({ title, items})));
+  //     //getCollectionsAndDocuments('collections');
+  //   });
+  //   //unssubscribe function
+  //   return () => {
+  //     console.log('cleaning up');
+  //     unsubscribeFromAuth();
+  //   };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => console.log('currentUser', currentUser), [currentUser]);
 
