@@ -13,34 +13,14 @@ import CheckoutPage from './pages/checkout/checkout.component.jsx';
 import { auth, createUserProfileDocument, addCollectionsAndDocuments, getCollectionsAndDocuments  } from './firebase/firebase.utils';
 import { selectCurrentUser } from './redux/user/user.selector';
 import { selectCollectionsForPreview } from './redux/shop/shop.selector';
+import { checkUserSession } from './redux/user/user.actions';
 
-function App({ currentUser, setCurrentUser, collectionsArray }) {
-  //const [currentUser, setCurrentUser] = useState(null);
+function App({ currentUser, checkUserSession, setCurrentUser, collectionsArray }) {
 
-  // useEffect(() => {
-  //   let unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-  //     if (userAuth) {
-  //       const userRef = await createUserProfileDocument(userAuth);
-  //       //
-  //       userRef.onSnapshot((snapShot) => {
-  //         setCurrentUser({
-  //           id: snapShot.id,
-  //           ...snapShot.data(),
-  //         });
-  //       });
-  //     } else {
-  //       setCurrentUser(userAuth);
-  //     }
-  //     //addCollectionsAndDocuments('collections', collectionsArray.map(({title, items }) => ({ title, items})));
-  //     //getCollectionsAndDocuments('collections');
-  //   });
-  //   //unssubscribe function
-  //   return () => {
-  //     console.log('cleaning up');
-  //     unsubscribeFromAuth();
-  //   };
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    checkUserSession();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => console.log('currentUser', currentUser), [currentUser]);
 
@@ -62,5 +42,8 @@ const mapStateToProps = createStructuredSelector({
   collectionsArray: selectCollectionsForPreview
 });
 
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
+})
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
